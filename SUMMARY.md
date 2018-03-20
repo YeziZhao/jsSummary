@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* [1.数据类型](chapter1.md)
-* [test](test.md)
-* [dfdf](dfdf.md)
+* [1.数据类型](1数据类型/1.1数据类型.md)
+* [1.1数据类型](1数据类型/1.1数据类型.md)
+* [1.2练习题](1数据类型/1.2练习题.md)
 
