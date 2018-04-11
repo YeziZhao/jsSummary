@@ -23,5 +23,5 @@
   * [3.3封装继承多态](3面向对象/3.3封装继承多态.md)
   * [3.4EMSAScript5中的类](3面向对象/3.4EMSAScript5中的类.md)
 * [4客户端的javascript](4客户端的javascript/4.1DOM和BOM的区别.md)
-  * [4.1BOM](4客户端的javascript/4.2BOM.md)
-  * [4.2BOM](4客户端的javascript/4.3DOM.md)
+  * [4.2BOM](4客户端的javascript/4.2BOM.md)
+  * [4.3BOM](4客户端的javascript/4.3DOM.md)
