@@ -1,6 +1,7 @@
 var net = require('net');
 var EventEmitter = require('events').EventEmitter;
 var channel = new EventEmitter();
+console.log('2-3', __dirname);
 // 定义发布对象和订阅对象
 channel.clients = {};
 channel.subscriptions = {};
