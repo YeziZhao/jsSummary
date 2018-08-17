@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://juejin.im/book/5a6abad5518825733c144469/section/5a6abad5518825732e2f8546 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover"><meta name="google-site-verification" content="cCHsgG9ktuCTgWgYfqCJql8AeR4gAne4DTZqztPoirE"><meta name="apple-itunes-app" content="app-id=987739104"><meta name="baidu-site-verification" content="qiK2a1kcFc"><meta name="360-site-verification" content="4c3c7d57d59f0e1a308462fbc7fd7e51"><meta name="sogou_site_verification" content="c49WUDZczQ"><title data-vue-meta="true">使用 webpack 定制前端开发环境 - teabyii - 掘金小册</title><link rel="preload" href="./01.Webpack的概念与基础_files/manifest.c82579480fd25cb3a53a.js.下载" as="script"><link rel="preload" href="./01.Webpack的概念与基础_files/vendor.fb95a9518834ba0d0725.js.下载" as="script"><link rel="preload" href="./01.Webpack的概念与基础_files/app.7c3334862cd158a4567f.js.下载" as="script"><link rel="preload" href="./01.Webpack的概念与基础_files/app.58ee683a5be62bfa85c1995bcdaa7d0b.css" as="style"><link rel="apple-touch-icon" sizes="180x180" href="https://b-gold-cdn.xitu.io/favicons/v2/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://b-gold-cdn.xitu.io/favicons/v2/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://b-gold-cdn.xitu.io/favicons/v2/favicon-16x16.png"><link rel="manifest" href="https://b-gold-cdn.xitu.io/favicons/v2/manifest.json"><link rel="mask-icon" href="https://b-gold-cdn.xitu.io/favicons/v2/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="https://b-gold-cdn.xitu.io/favicons/v2/favicon.ico"><meta name="msapplication-config" content="https://b-gold-cdn.xitu.io/favicons/v2/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="search" title="掘金" href="https://b-gold-cdn.xitu.io/conf/search.xml" type="application/opensearchdescription+xml"><link rel="stylesheet" href="./01.Webpack的概念与基础_files/ionicons.min.css"><link rel="stylesheet" href="./01.Webpack的概念与基础_files/iconfont.css"><link href="./01.Webpack的概念与基础_files/app.58ee683a5be62bfa85c1995bcdaa7d0b.css" rel="stylesheet"><script async="" src="./01.Webpack的概念与基础_files/hm.js.下载"></script><script async="" src="./01.Webpack的概念与基础_files/analytics.js.下载"></script><script type="text/javascript" async="" src="./01.Webpack的概念与基础_files/vds.js.下载"></script><script type="text/javascript" charset="utf-8" async="" src="./01.Webpack的概念与基础_files/6.86717d29fac78b03d086.js.下载"></script><meta data-vmid="keywords" name="keywords" content="掘金,稀土,Vue.js,微信小程序,Kotlin,RxJava,React Native,Wireshark,敏捷开发,Bootstrap,OKHttp,正则表达式,WebGL,Webpack,Docker,MVVM" data-vue-meta="true"><meta data-vmid="description" name="description" content="掘金是一个帮助开发者成长的社区，是给开发者用的 Hacker News，给设计师用的 Designer News，和给产品经理用的 Medium。掘金的技术文章由稀土上聚集的技术大牛和极客共同编辑为你筛选出最优质的干货，其中包括：Android、iOS、前端、后端等方面的内容。用户每天都可以在这里找到技术世界的头条内容。与此同时，掘金内还有沸点、掘金翻译计划、线下活动、专栏文章等内容。即使你是 GitHub、StackOverflow、开源中国的用户，我们相信你也可以在这里有所收获。" data-vue-meta="true"></head><body cz-shortcut-listen="true"><div id="juejin" data-v-6ede48a3=""><div class="global-component-box" data-v-6ede48a3=""><!----><div data-v-2840e9c3="" data-v-6ede48a3="" class="alert-list alert-list"></div><!----><!----><!----><div class="emoji-barrage" data-v-475389e2="" data-v-6ede48a3=""><!----></div><div class="book-new-user-award-popup" style="display:none;" data-v-7c95f01f="" data-v-6ede48a3=""><div class="content-box" style="display:;" data-v-7c95f01f=""><div class="close ion-close-round" data-v-7c95f01f=""></div><div class="header" data-v-7c95f01f=""><div class="icon" data-v-7c95f01f=""><img src="./01.Webpack的概念与基础_files/icon.a87e5ae.svg" data-v-7c95f01f=""></div><div class="txt" data-v-7c95f01f="">新人专享好礼</div></div><div class="desc" data-v-7c95f01f="">凡未购买过小册的用户，均可领取三张 5 折新人专享券，购买小册时自动使用专享券，最高可节省 45 元。</div><div class="tickets" data-v-7c95f01f=""><div class="ticket" data-v-7c95f01f=""><div class="ticket__inner" data-v-7c95f01f=""><div class="enjoy" data-v-7c95f01f=""><span class="new-title" data-v-7c95f01f="">小册新人 5 折券</span></div><div class="sale" data-v-7c95f01f="">最高可省 15 元</div></div></div><div class="ticket" data-v-7c95f01f=""><div class="ticket__inner" data-v-7c95f01f=""><div class="enjoy" data-v-7c95f01f=""><span class="new-title" data-v-7c95f01f="">小册新人 5 折券</span></div><div class="sale" data-v-7c95f01f="">最高可省 15 元</div></div></div><div class="ticket" data-v-7c95f01f=""><div class="ticket__inner" data-v-7c95f01f=""><div class="enjoy" data-v-7c95f01f=""><span class="new-title" data-v-7c95f01f="">小册新人 5 折券</span></div><div class="sale" data-v-7c95f01f="">最高可省 15 元</div></div></div></div><div class="remark" data-v-7c95f01f="">注：专享券的使用期限在领券的七天内。</div><div class="submit-btn" data-v-7c95f01f="">一键领取</div></div><div class="model success" style="display:none;" data-v-7c95f01f=""><div class="heading" data-v-7c95f01f="">领取成功</div><div class="content-text" data-v-7c95f01f="">购买小册时自动使用专享券</div><div class="btn-success-footer" data-v-7c95f01f=""><div class="btn-ok" data-v-7c95f01f="">知道了</div><div class="btn-ok btn-link" data-v-7c95f01f="">前往小册首页</div></div></div><div class="model fail" style="display:none;" data-v-7c95f01f=""><div class="heading" data-v-7c95f01f="">领取失败</div><div class="content-text" data-v-7c95f01f="">本活动仅适用于小册新用户</div><div class="btn-ok" data-v-7c95f01f="">知道了</div></div></div><!----></div><!----><div data-v-a39a1c6e="" data-v-6ede48a3="" class="book-read-view"><section data-v-a39a1c6e="" class="book-section"><div data-v-a39a1c6e="" class="book-summary"><div data-v-a39a1c6e="" class="book-summary-masker"></div><div data-v-a39a1c6e="" class="book-summary-inner"><div data-v-a39a1c6e="" class="book-summary__header"><a data-v-a39a1c6e="" href="https://juejin.im/books" target="" rel="" class="logo"><img data-v-a39a1c6e="" src="./01.Webpack的概念与基础_files/logo.a7995ad.svg"></a><div data-v-a39a1c6e="" class="label">小册</div><!----></div><!----><div data-v-8a5cc2ba="" data-v-a39a1c6e="" class="section-menu book-directory bought"><a data-v-8a5cc2ba="" class="section route-active section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">1</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">webpack 的概念和基础使用</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">2</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">搭建基本的前端开发环境</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">3</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">webpack 如何解析代码模块路径</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">4</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">配置 loader</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">5</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">使用 plugin</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">6</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">更好地使用 webpack-dev-server</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">7</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">开发和生产环境的构建配置差异</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">8</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">用 HMR 提高开发效率</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">9</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">优化前端资源加载 1 - 图片加载优化和代码压缩</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">10</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">优化前端资源加载 2 - 分离代码文件</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">11</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">优化前端资源加载 3 - 进一步控制 JS 大小</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">12</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">提升 webpack 的构建速度</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">13</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">探究 webpack 内部工作流程</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">14</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">创建自己的 loader</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">15</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">创建自己的 plugin</div><!----><!----></div><!----></a><a data-v-8a5cc2ba="" class="section section-link"><div data-v-8a5cc2ba="" class="step"><div data-v-8a5cc2ba="" class="step-btn">16</div></div><div data-v-8a5cc2ba="" class="center"><div data-v-8a5cc2ba="" class="title">总结</div><!----><!----></div><!----></a></div><div data-v-a39a1c6e="" class="book-summary__footer"><div data-v-a39a1c6e="" class="qr-icon"><img data-v-a39a1c6e="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNCQUJBQkEiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExIDBoOXY5aC05VjB6TTAgMGg5djlIMFYwem0wIDExaDl2OUgwdi05em0xNC01aDNWM2gtM3Yzek0zIDZoM1YzSDN2M3ptMCAxMXYtM2gzdjNIM3ptOC02aDN2M2gtM3YtM3ptMyAzaDN2M2gtM3YtM3ptMy0zaDN2M2gtM3YtM3ptLTYgNmgzdjNoLTN2LTN6bTYgMGgzdjNoLTN2LTN6Ii8+Cjwvc3ZnPgo="></div><div data-v-a39a1c6e="" class="qr-tips"><span data-v-a39a1c6e="" class="ion-close"></span><div data-v-a39a1c6e="" class="title"><span data-v-a39a1c6e="">关注公众号</span><span data-v-a39a1c6e="">领取优惠码</span></div><div data-v-a39a1c6e="" class="qr-img"><img data-v-a39a1c6e="" src="./01.Webpack的概念与基础_files/wx-qr.13d8b4d.png"></div></div></div></div></div><div data-v-a39a1c6e="" class="book-content"><div data-v-a39a1c6e="" class="book-content-inner"><div data-v-a39a1c6e="" class="book-content__header visible"><div data-v-a39a1c6e="" class="switch"><img data-v-a39a1c6e="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjQwcHgiIGhlaWdodD0iNDBweCIgdmlld0JveD0iMCAwIDQwIDQwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjMgKDEyMDgxKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5qdWVqaW5fbG9nbyBjb3B5PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9Imp1ZWppbl9sb2dvLWNvcHkiIHNrZXRjaDp0eXBlPSJNU0FydGJvYXJkR3JvdXAiIGZpbGw9IiMwMDdGRkYiPgogICAgICAgICAgICA8cGF0aCBkPSJNMjMuMjgxOTk4NCw3LjcwMzA1NDUgTDE5Ljg1Mzg3MTQsNSBMMTYuMjcyMTkxOCw3LjgyNDE3NTcgTDE2LjA4NjUzODgsNy45NzM3NTcwNyBMMTkuODUzODcxNCwxMC45Nzc2MjkgTDIzLjYzMjc4NjYsNy45NzM3NTcwNyBMMjMuMjgxOTk4NCw3LjcwMzA1NDUgWiBNMzYuMjcyNzQzMywxOC4xODU2NjQgTDE5Ljg0Mzk0MzQsMzEuMTQwMDA2NCBMMy40MjUwNzE0MywxOC4xOTM2MDY0IEwxLDIwLjE0MTQ3MzUgTDE5Ljg0Mzk0MzQsMzUgTDM4LjY5ODE0NTcsMjAuMTMzNTMxMiBMMzYuMjcyNzQzMywxOC4xODU2NjQgWiBNMTkuODQzOTQzNCwxOS4yMzY3MDQ4IEwxMC45MDM4MDksMTIuMTg3NTE3MiBMOC40Nzg0MDY2NywxNC4xMzUzODQ0IEwxOS44NDM5NDM0LDIzLjA5NzAyOTMgTDMxLjIxOTA3NzEsMTQuMTI3NDQyIEwyOC43OTM2NzQ4LDEyLjE3OTU3NDkgTDE5Ljg0Mzk0MzQsMTkuMjM2NzA0OCBaIiBpZD0iRmlsbC0xLUNvcHktMiIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+"></div><div data-v-a39a1c6e="" class="menu"><img data-v-a39a1c6e="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxM3B4IiB2aWV3Qm94PSIwIDAgMTYgMTMiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQ3LjEgKDQ1NDIyKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5Hcm91cCA0PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IuWFqOWxjyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IjJfZnVsbHNjcmVlbl9jbG9zZS1zaWRlYmFyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTkuMDAwMDAwLCAtMjUuMDAwMDAwKSIgZmlsbD0iIzk3OTc5NyI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC00IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOS4wMDAwMDAsIDI1LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZS0zIiB4PSIwIiB5PSI1LjUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxLjUiPjwvcmVjdD4KICAgICAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUtMyIgeD0iMCIgeT0iMCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjEuNSI+PC9yZWN0PgogICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZS0zLUNvcHkiIHg9IjAiIHk9IjExIiB3aWR0aD0iMTYiIGhlaWdodD0iMS41Ij48L3JlY3Q+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg=="></div><div data-v-a39a1c6e="" class="title"><a data-v-a39a1c6e="" href="https://juejin.im/book/5a6abad5518825733c144469" target="" rel="">使用 webpack 定制前端开发环境</a></div><div data-v-11fc2358="" data-v-a39a1c6e="" class="user-auth user-auth"><div data-v-11fc2358="" class="nav-item menu"><div data-v-b2db8566="" data-v-1b9df826="" data-v-11fc2358="" data-src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJd4qPDEPyyBz2ial1lYRiaatIpUpHSQlyX1ibbTkY8kGrH7ia1Nnic7spTlXPcly2zGD30IdUKF81iccNQ/132" class="lazy avatar avatar loaded" title="" style="background-image: url(&quot;https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJd4qPDEPyyBz2ial1lYRiaatIpUpHSQlyX1ibbTkY8kGrH7ia1Nnic7spTlXPcly2zGD30IdUKF81iccNQ/132&quot;);"></div><div data-v-11fc2358="" class="nav-menu user-dropdown-list" style="display: none;"><ul data-v-11fc2358="" class="nav-menu-item-group"><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358=""><i data-v-11fc2358="" class="fengwei fw-write"></i><span data-v-11fc2358="">写文章</span></a></li><!----><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358=""><i data-v-11fc2358="" class="fengwei fw-draft"></i><span data-v-11fc2358="">草稿</span></a></li></ul><ul data-v-11fc2358="" class="nav-menu-item-group"><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/user/5b6004aee51d4519873f7a5b"><i data-v-11fc2358="" class="fengwei fw-person"></i><span data-v-11fc2358="">我的主页</span></a></li><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/user/5b6004aee51d4519873f7a5b/likes"><i data-v-11fc2358="" class="fengwei fw-like"></i><span data-v-11fc2358="">我喜欢的</span></a></li><!----><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/user/5b6004aee51d4519873f7a5b/collections"><i data-v-11fc2358="" class="fengwei fw-collection"></i><span data-v-11fc2358="">我的收藏集</span></a></li><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/user/5b6004aee51d4519873f7a5b/books?type=bought"><i data-v-11fc2358="" class="fengwei fw-bought"></i><span data-v-11fc2358="">已购</span></a></li><!----><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/subscribe"><i data-v-11fc2358="" class="fengwei fw-tag"></i><span data-v-11fc2358="">标签管理</span></a></li></ul><ul data-v-11fc2358="" class="nav-menu-item-group"><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/user/settings"><i data-v-11fc2358="" class="fengwei fw-setting"></i><span data-v-11fc2358="">设置</span></a></li><li data-v-11fc2358="" class="nav-menu-item more"><a data-v-11fc2358=""><i data-v-11fc2358="" class="fengwei fw-info"></i><span data-v-11fc2358="">关于</span><i data-v-11fc2358="" class="ion-chevron-right more-icon"></i></a><div data-v-11fc2358="" class="nav-menu more-dropdown-list"><ul data-v-11fc2358="" class="nav-menu-item-group"><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/app" target="_blank">下载应用</a></li><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://juejin.im/about" target="_blank">关于</a></li><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://xitu.io/jobs" target="_blank">加入我们</a></li><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://github.com/xitu/gold-miner" rel="nofollow noopener noreferrer" target="_blank">翻译计划</a></li><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358="" href="https://bd.juejin.im/?utm_campaign=bd&amp;utm_source=web&amp;utm_medium=nav" target="_blank">合作伙伴</a></li></ul></div></li></ul><ul data-v-11fc2358="" class="nav-menu-item-group"><li data-v-11fc2358="" class="nav-menu-item"><a data-v-11fc2358=""><i data-v-11fc2358="" class="fengwei fw-logout"></i><span data-v-11fc2358="">登出</span></a></li></ul></div></div><!----></div><!----></div><div data-v-a39a1c6e="" class="book-body transition--prev"><div data-v-decff8c4="" data-v-a39a1c6e="" class="section-view book-section-content"><div data-v-41acfafa="" data-v-decff8c4="" class="section-content"><div data-v-41acfafa="" class="section-page book-section-view"><div data-v-41acfafa="" class="entry-content article-content"><h1 class="heading" data-id="heading-0">webpack 的概念和基础使用</h1>
+<p>我们在小册介绍中提到，webpack 是一个 JS 代码模块化的打包工具，藉由它强大的扩展能力，随着社区的发展，逐渐成为一个功能完善的构建工具。相信开始学习这个小册的同学们多多少少都能够理解为什么前端开发中会使用到 webpack，我们不再详细介绍 webpack 的使用背景，直奔本小节的主题。</p>
+<h2 class="heading" data-id="heading-1">安装和使用</h2>
+<p>我们使用 npm 或者 yarn 来安装 webpack，可以作为一个全局的命令来使用：</p>
+<pre><code class="hljs shell" lang="shell">npm install webpack webpack-cli -g 
+<span class="hljs-meta">
+#</span><span class="bash"> 或者</span>
+yarn global add webpack webpack-cli
+<span class="hljs-meta">
+#</span><span class="bash"> 然后就可以全局执行命令了</span>
+webpack --help
+</code></pre><p><a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fwebpack%2Fwebpack-cli" rel="nofollow noopener noreferrer">webpack-cli</a> 是使用 webpack 的命令行工具，在 4.x 版本之后不再作为 webpack 的依赖了，我们使用时需要单独安装这个工具。</p>
+<p>在项目中，我们更多地会把 webpack 作为项目的开发依赖来安装使用，这样可以指定项目中使用的 webpack 版本，更加方便多人协同开发：</p>
+<blockquote>
+<p>确保你的项目中有 package.json 文件，如果没有可以使用 <code>npm init</code> 来创建。</p>
+</blockquote>
+<pre><code class="hljs shell" lang="shell">npm install webpack -D 
+<span class="hljs-meta">
+#</span><span class="bash"> 或者</span>
+yarn add webpack -D
+</code></pre><p>这样 webpack 会出现在 package.json 中，我们再添加一个 npm scripts：</p>
+<pre><code class="hljs json" lang="json">  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12",
+  }
+</code></pre><p>然后我们创建一个 <code>./src/index.js</code> 文件，可以写任意的 JS 代码。创建好了之后执行 <code>npm run build</code> 或者 <code>yarn build</code> 命令，你就会发现新增了一个 <code>dist</code> 目录，里边存放的是 webpack 构建好的 <code>main.js</code> 文件。</p>
+<p>因为是作为项目依赖进行安装，所以不会有全局的命令，npm/yarn 会帮助我们在当前项目依赖中寻找对应的命令执行，如果是全局安装的 webpack，直接执行 <code>webpack --mode production</code> 就可以。</p>
+<p>webpack 4.x 的版本可以零配置就开始进行构建，但是笔者觉得这个功能还不全面，缺少很多实际项目需要的功能，所以基本你还是需要一个配置文件，后边会详细讲解。</p>
+<p>我们先来了解 webpack 中的一些基本概念。</p>
+<h2 class="heading" data-id="heading-2">webpack 的基本概念</h2>
+<p>webpack 本质上是一个打包工具，它会根据代码的内容解析模块依赖，帮助我们把多个模块的代码打包。借用 webpack 官网的图片：</p>
+<p></p><figure><img alt="webpack as a bundler" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2018/3/19/1623bfac4a1e0945?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="1280" data-height="505" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1280&quot; height=&quot;505&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p>如上图，webpack 会把我们项目中使用到的多个代码模块（可以是不同文件类型），打包构建成项目运行仅需要的几个静态文件。webpack 有着十分丰富的配置项，提供了十分强大的扩展能力，可以在打包构建的过程中做很多事情。我们先来看一下 webpack 中的几个基本概念。</p>
+<h3 class="heading" data-id="heading-3">入口</h3>
+<p>如上图所示，在多个代码模块中会有一个起始的 <code>.js</code> 文件，这个便是 webpack 构建的入口。webpack 会读取这个文件，并从它开始解析依赖，然后进行打包。如图，一开始我们使用 webpack 构建时，默认的入口文件就是 <code>./src/index.js</code>。</p>
+<p>我们常见的项目中，如果是单页面应用，那么可能入口只有一个；如果是多个页面的项目，那么经常是一个页面会对应一个构建入口。</p>
+<p>入口可以使用 <code>entry</code> 字段来进行配置，webpack 支持配置多个入口来进行构建：</p>
+<pre><code class="hljs js" lang="js"><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: <span class="hljs-string">'./src/index.js'</span> 
+}
+
+<span class="hljs-comment">// 上述配置等同于</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: {
+    <span class="hljs-attr">main</span>: <span class="hljs-string">'./src/index.js'</span>
+  }
+}
+
+<span class="hljs-comment">// 或者配置多个入口</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: {
+    <span class="hljs-attr">foo</span>: <span class="hljs-string">'./src/page-foo.js'</span>,
+    <span class="hljs-attr">bar</span>: <span class="hljs-string">'./src/page-bar.js'</span>, 
+    <span class="hljs-comment">// ...</span>
+  }
+}
+
+<span class="hljs-comment">// 使用数组来对多个文件进行打包</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: {
+    <span class="hljs-attr">main</span>: [
+      <span class="hljs-string">'./src/foo.js'</span>,
+      <span class="hljs-string">'./src/bar.js'</span>
+    ]
+  }
+}
+</code></pre><p>最后的例子，可以理解为多个文件作为一个入口，webpack 会解析两个文件的依赖后进行打包。</p>
+<h3 class="heading" data-id="heading-4">loader</h3>
+<p>webpack 中提供一种处理多种文件格式的机制，便是使用 loader。我们可以把 loader 理解为是一个转换器，负责把某种文件格式的内容转换成 webpack 可以支持打包的模块。</p>
+<p>举个例子，在没有添加额外插件的情况下，webpack 会默认把所有依赖打包成 js 文件，如果入口文件依赖一个 .hbs 的模板文件以及一个 .css 的样式文件，那么我们需要 handlebars-loader 来处理 .hbs 文件，需要 css-loader 来处理 .css 文件（这里其实还需要 style-loader，后续详解），最终把不同格式的文件都解析成 js 代码，以便打包后在浏览器中运行。</p>
+<p>当我们需要使用不同的 loader 来解析处理不同类型的文件时，我们可以在 <code>module.rules</code> 字段下来配置相关的规则，例如使用 Babel 来处理 .js 文件：</p>
+<pre><code class="hljs js" lang="js"><span class="hljs-built_in">module</span>: {
+  <span class="hljs-comment">// ...</span>
+  rules: [
+    {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.jsx?/</span>, <span class="hljs-comment">// 匹配文件路径的正则表达式，通常我们都是匹配文件类型后缀</span>
+      include: [
+        path.resolve(__dirname, <span class="hljs-string">'src'</span>) <span class="hljs-comment">// 指定哪些路径下的文件需要经过 loader 处理</span>
+      ],
+      <span class="hljs-attr">use</span>: <span class="hljs-string">'babel-loader'</span>, <span class="hljs-comment">// 指定使用的 loader</span>
+    },
+  ],
+}
+</code></pre><p>loader 是 webpack 中比较复杂的一块内容，它支撑着 webpack 来处理文件的多样性。后续我们还会介绍如何更好地使用 loader 以及如何开发 loader。</p>
+<h3 class="heading" data-id="heading-5">plugin</h3>
+<p>在 webpack 的构建流程中，plugin 用于处理更多其他的一些构建任务。可以这么理解，模块代码转换的工作由 loader 来处理，除此之外的其他任何工作都可以交由 plugin 来完成。通过添加我们需要的 plugin，可以满足更多构建中特殊的需求。例如，要使用压缩 JS 代码的 uglifyjs-webpack-plugin 插件，只需在配置中通过 <code>plugins</code> 字段添加新的 plugin 即可：</p>
+<pre><code class="hljs js" lang="js"><span class="hljs-keyword">const</span> UglifyPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'uglifyjs-webpack-plugin'</span>)
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> UglifyPlugin()
+  ],
+}
+</code></pre><p>除了压缩 JS 代码的 <a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fwebpack.js.org%2Fplugins%2Fuglifyjs-webpack-plugin%2F" rel="nofollow noopener noreferrer">uglifyjs-webpack-plugin</a>，常用的还有定义环境变量的 <a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fwebpack.js.org%2Fplugins%2Fdefine-plugin%2F" rel="nofollow noopener noreferrer">DefinePlugin</a>，生成 CSS 文件的 <a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fwebpack.js.org%2Fplugins%2Fextract-text-webpack-plugin%2F" rel="nofollow noopener noreferrer">ExtractTextWebpackPlugin</a> 等。在这里提到这些 plugin，只是希望读者们能够对 plugin 的作用有个大概的印象，后续的小节会详细介绍如何使用这些 plugin。</p>
+<p>plugin 理论上可以干涉 webpack 整个构建流程，可以在流程的每一个步骤中定制自己的构建需求。第 15 小节我们会介绍如何开发 plugin，让读者们在必要时，也可以在 webpack 的基础上开发 plugin 来应对一些项目的特殊构建需求。</p>
+<h3 class="heading" data-id="heading-6">输出</h3>
+<p>webpack 的输出即指 webpack 最终构建出来的静态文件，可以看看上面 webpack 官方图片右侧的那些文件。当然，构建结果的文件名、路径等都是可以配置的，使用 <code>output</code> 字段：</p>
+<pre><code class="hljs js" lang="js"><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// ...</span>
+  output: {
+    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">'dist'</span>),
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'bundle.js'</span>,
+  },
+}
+
+<span class="hljs-comment">// 或者多个入口生成不同文件</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: {
+    <span class="hljs-attr">foo</span>: <span class="hljs-string">'./src/foo.js'</span>,
+    <span class="hljs-attr">bar</span>: <span class="hljs-string">'./src/bar.js'</span>,
+  },
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'[name].js'</span>,
+    <span class="hljs-attr">path</span>: __dirname + <span class="hljs-string">'/dist'</span>,
+  },
+}
+
+<span class="hljs-comment">// 路径中使用 hash，每次构建时会有一个不同 hash 值，避免发布新版本时线上使用浏览器缓存</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// ...</span>
+  output: {
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'[name].js'</span>,
+    <span class="hljs-attr">path</span>: __dirname + <span class="hljs-string">'/dist/[hash]'</span>,
+  },
+}
+</code></pre><p>我们一开始直接使用 webpack 构建时，默认创建的输出内容就是 <code>./dist/main.js</code>。</p>
+<h2 class="heading" data-id="heading-7">一个简单的 webpack 配置</h2>
+<p>我们把上述涉及的几部分配置内容合到一起，就可以创建一个简单的 webpack 配置了，webpack 运行时默认读取项目下的 <code>webpack.config.js</code> 文件作为配置。</p>
+<p>所以我们在项目中创建一个 <code>webpack.config.js</code> 文件：</p>
+<pre><code class="hljs js" lang="js"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> UglifyPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'uglifyjs-webpack-plugin'</span>)
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: <span class="hljs-string">'./src/index.js'</span>,
+
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">'dist'</span>),
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'bundle.js'</span>,
+  },
+
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.jsx?/</span>,
+        <span class="hljs-attr">include</span>: [
+          path.resolve(__dirname, <span class="hljs-string">'src'</span>)
+        ],
+        <span class="hljs-attr">use</span>: <span class="hljs-string">'babel-loader'</span>,
+      },
+    ],
+  },
+
+  <span class="hljs-comment">// 代码模块路径解析的配置</span>
+  resolve: {
+    <span class="hljs-attr">modules</span>: [
+      <span class="hljs-string">"node_modules"</span>,
+      path.resolve(__dirname, <span class="hljs-string">'src'</span>)
+    ],
+
+    <span class="hljs-attr">extensions</span>: [<span class="hljs-string">".wasm"</span>, <span class="hljs-string">".mjs"</span>, <span class="hljs-string">".js"</span>, <span class="hljs-string">".json"</span>, <span class="hljs-string">".jsx"</span>],
+  },
+
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> UglifyPlugin(), 
+    <span class="hljs-comment">// 使用 uglifyjs-webpack-plugin 来压缩 JS 代码</span>
+    <span class="hljs-comment">// 如果你留意了我们一开始直接使用 webpack 构建的结果，你会发现默认已经使用了 JS 代码压缩的插件</span>
+    <span class="hljs-comment">// 这其实也是我们命令中的 --mode production 的效果，后续的小节会介绍 webpack 的 mode 参数</span>
+  ],
+}
+</code></pre><p>webpack 的配置其实是一个 Node.js 的脚本，这个脚本对外暴露一个配置对象，webpack 通过这个对象来读取相关的一些配置。因为是 Node.js 脚本，所以可玩性非常高，你可以使用任何的 Node.js 模块，如上述用到的 <code>path</code> 模块，当然第三方的模块也可以。</p>
+<p>创建了 webpack.config.js 后再执行 webpack 命令，webpack 就会使用这个配置文件的配置了。</p>
+<p>有的时候我们开始一个新的前端项目，并不需要从零开始配置 webpack，而可以使用一些工具来帮助快速生成 webpack 配置。</p>
+<h2 class="heading" data-id="heading-8">脚手架中的 webpack 配置</h2>
+<p>现今，大多数前端框架都提供了简单的工具来协助快速生成项目基础文件，一般都会包含项目使用的 webpack 的配置，如：</p>
+<ul>
+<li>
+<p><a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Ffacebookincubator%2Fcreate-react-app" rel="nofollow noopener noreferrer">create-react-app</a></p>
+<p>create-react-app 的 webpack 配置在这个项目下：<a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Ffacebookincubator%2Fcreate-react-app%2Fblob%2Fmaster%2Fpackages%2Freact-scripts%2FREADME.md" rel="nofollow noopener noreferrer">react-scripts</a>。</p>
+</li>
+<li>
+<p><a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fangular%2Fdevkit%2Fblob%2Fmaster%2Fpackages%2Fangular_devkit%2Fbuild_webpack%2FREADME.md" rel="nofollow noopener noreferrer">angular/devkit/build-webpack</a></p>
+<p>通常 angular 的项目开发和生产的构建任务都是使用 angular-cli 来运行的，但 angular-cli 只是命令的使用接口，基础功能是由 <a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fangular%2Fdevkit" rel="nofollow noopener noreferrer">angular/devkit</a> 来实现的，webpack 的构建相关只是其中一部分，详细的配置可以参考 <a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fangular%2Fdevkit%2Ftree%2Fmaster%2Fpackages%2Fangular_devkit%2Fbuild_webpack%2Fsrc%2Fangular-cli-files%2Fmodels%2Fwebpack-configs" rel="nofollow noopener noreferrer">webpack-configs</a> 。</p>
+</li>
+<li>
+<p><a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fvuejs%2Fvue-cli%2F" rel="nofollow noopener noreferrer">vue-cli</a></p>
+<p>vue-cli 使用 webpack 模板生成的项目文件中，webpack 相关配置存放在 build 目录下。</p>
+</li>
+</ul>
+<p>这些工具都提供了极其完整的配置来帮助开发者快捷开始一个项目，我们可以学习了解它们所提供的 webpack 配置，有些情况下，还会尝试修改这些配置以满足特殊的需求。</p>
+<p>所以你也会发现，这些极其流行的前端类库或者框架都提供了基于 webpack 的工具，webpack 基本成为前端项目构建工具的标配。</p>
+<blockquote class="warning"><p>这三个工具中，只有 angular-cli 使用了 4.x 版本的 webpack，其他的都还是用的 3.x 版本，学习的时候要留意一下版本区别。
+</p></blockquote><h2 class="heading" data-id="heading-9">小结</h2>
+<p>webpack 的安装和使用和大多数使用 Node.js 开发的命令行工具一样，使用 npm 安装后执行命令即可，webpack 4.x 版本的零配置特性也让上手变得更加简单。</p>
+<p>前面我们已经介绍了 webpack 的几个重要的概念：入口，loader，plugin，输出，并且展示了一个简单的 webpack 配置例子，最后提供了前端社区三大框架基于 webpack 的脚手架工具的链接，也许这些工具提供的配置会比较难懂，后续的小节会帮助你逐渐去深入，慢慢地，你会对 webpack 配置越来越得心应手。</p>
+<h2 class="heading" data-id="heading-10">例子</h2>
+<p>本小节提及的一些简单的 Demo 可以在 <a target="_blank" href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fteabyii%2Fwebpack-examples" rel="nofollow noopener noreferrer">webpack-examples</a> 找到。</p>
+</div><section data-v-41acfafa="" class="book-comments"><div data-v-41acfafa="" class="box-title">留言</div><div data-v-41acfafa="" class="comment-box"><div data-v-efcd2e56="" data-v-41acfafa="" class="comment-form comment-form" id="comment"><div data-v-b2db8566="" data-v-1b9df826="" data-v-efcd2e56="" data-src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJd4qPDEPyyBz2ial1lYRiaatIpUpHSQlyX1ibbTkY8kGrH7ia1Nnic7spTlXPcly2zGD30IdUKF81iccNQ/132" class="lazy avatar avatar loaded" title="" style="background-image: url(&quot;https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJd4qPDEPyyBz2ial1lYRiaatIpUpHSQlyX1ibbTkY8kGrH7ia1Nnic7spTlXPcly2zGD30IdUKF81iccNQ/132&quot;);"></div><textarea data-v-efcd2e56="" placeholder="评论将在后台进行审核，审核通过后对所有人可见" class="content-input" style="overflow: hidden; word-wrap: break-word; height: 60px;"></textarea><div data-v-efcd2e56="" class="action-box" style="display: none;"><div data-v-54e3f196="" data-v-efcd2e56="" class="image-uploader image-uploader" style="display: none;"><input data-v-54e3f196="" type="file" class="input"><button data-v-54e3f196="" class="upload-btn"><i data-v-54e3f196="" class="icon ion-image"></i><span data-v-54e3f196="">上传图片</span></button></div><div data-v-efcd2e56="" class="submit-box"><span data-v-efcd2e56="" class="submit-text">Ctrl or ⌘ + Enter</span><button data-v-efcd2e56="" class="submit-btn">评论</button></div></div><!----></div></div><ul data-v-51163f89="" data-v-41acfafa="" st:block="commentList" class="comment-list comment-list"><!----></ul></section></div></div><!----><!----></div></div><div data-v-76ca1e36="" data-v-a39a1c6e="" class="book-handle book-direction"><!----><div data-v-76ca1e36="" class="step-btn step-btn--next"><img data-v-76ca1e36="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxwYXRoIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0xMyAyMmw3LTYuNUwxMyA5Ii8+Cjwvc3ZnPgo="></div><!----><!----></div><!----></div></div></section><!----><!----><div data-v-f0e3c22e="" data-v-a39a1c6e="" class="image-viewer-box"><!----></div></div><!----></div>
+      
+      <script type="text/javascript" src="./01.Webpack的概念与基础_files/manifest.c82579480fd25cb3a53a.js.下载"></script><script type="text/javascript" src="./01.Webpack的概念与基础_files/vendor.fb95a9518834ba0d0725.js.下载"></script><script type="text/javascript" src="./01.Webpack的概念与基础_files/app.7c3334862cd158a4567f.js.下载"></script>
+    <div style="position: static; width: 0px; height: 0px; border: none; padding: 0px; margin: 0px;"><div id="trans-tooltip"><div id="tip-left-top" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-left-top.png&quot;);"></div><div id="tip-top" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-top.png&quot;) repeat-x;"></div><div id="tip-right-top" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-right-top.png&quot;);"></div><div id="tip-right" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-right.png&quot;) repeat-y;"></div><div id="tip-right-bottom" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-right-bottom.png&quot;);"></div><div id="tip-bottom" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-bottom.png&quot;) repeat-x;"></div><div id="tip-left-bottom" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-left-bottom.png&quot;);"></div><div id="tip-left" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-left.png&quot;);"></div><div id="trans-content"></div></div><div id="tip-arrow-bottom" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-arrow-bottom.png&quot;);"></div><div id="tip-arrow-top" style="background: url(&quot;chrome-extension://ccfjcepmiaackkccabgeeegeklgifffd/imgs/map/tip-arrow-top.png&quot;);"></div></div></body></html>
